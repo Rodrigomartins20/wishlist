@@ -2,11 +2,13 @@ import AllClientInterface from '../src/domain/usecases/all-client-interface'
 import FindClientInterface from '../src/domain/usecases/find-client-interface'
 import UpdateClientInterface from '../src/domain/usecases/update-client-interface'
 import PostClientInterface from '../src/domain/usecases/post-client-interface'
+import DeleteClientInterface from '../src/domain/usecases/delete-client-interface'
 import ClientController from '../src/presentation/controllers/client-controller'
 import { mockUpdateClientInterface } from '../__mocks__/update-client-interface-mock'
 import { mockAllClientInterface } from '../__mocks__/all-client-interface-mock'
 import { mockFindClientInterface } from '../__mocks__/find-client-interface-mock'
 import { mockPostClientInterface } from '../__mocks__/post-client-interface-mock'
+import { mockDeleteClientInterface } from '../__mocks__/delete-client-interface-mock'
 
 type SutTypes = {
   sut: ClientController,
@@ -14,20 +16,29 @@ type SutTypes = {
   allClientStub: AllClientInterface
   updateClientStub: UpdateClientInterface
   postClientStub: PostClientInterface
+  deleteClientStub: DeleteClientInterface
 }
 
 const makeSut = (): SutTypes => {
+  const deleteClientStub = mockDeleteClientInterface()
   const postClientStub = mockPostClientInterface()
   const updateClientStub = mockUpdateClientInterface()
   const allClientStub = mockAllClientInterface()
   const findClientStub = mockFindClientInterface()
-  const sut = new ClientController(findClientStub, allClientStub, updateClientStub, postClientStub)
+  const sut = new ClientController(
+    findClientStub,
+    allClientStub,
+    updateClientStub,
+    postClientStub,
+    deleteClientStub
+  )
   return {
     sut,
     findClientStub,
     allClientStub,
     updateClientStub,
-    postClientStub
+    postClientStub,
+    deleteClientStub
   }
 }
 
@@ -194,6 +205,29 @@ describe('Client Controller', () => {
         name: 'any name',
         email: 'any@mail.com'
       })
+
+      expect(response).toEqual({
+        message: 'oops',
+        error: 'any message'
+      })
+    })
+  })
+  
+  describe('Delete', () => {
+    it('should call DeleteClient with correct values', async () => {
+      const { sut, deleteClientStub } = makeSut()
+      const deleteClientSpy = jest.spyOn(deleteClientStub, 'delete')
+
+      await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+
+      expect(deleteClientSpy).toHaveBeenCalledWith('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+    })
+
+    it('should return an error if DeleteClient throws', async () => {
+      const { sut, deleteClientStub } = makeSut()
+      jest.spyOn(deleteClientStub, 'delete').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
+
+      const response = await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
 
       expect(response).toEqual({
         message: 'oops',
