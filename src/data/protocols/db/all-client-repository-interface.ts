@@ -1,5 +1,5 @@
 import { ClientModel } from '@/domain/models/client-model'
 
-export interface AllClientRepository {
+export interface AllClientRepositoryInterface {
   all: () => Promise<ClientModel[]>
 }

@@ -1,8 +1,8 @@
-import { AllClientRepository } from '../src/data/protocols/db/all-client-repository'
+import { AllClientRepositoryInterface } from '../src/data/protocols/db/all-client-repository-interface'
 import { ClientModel } from '../src/domain/models/client-model'
 
-export const mockAllClientRepository = (): AllClientRepository => {
-  class AllClientRepository implements AllClientRepository {
+export const mockAllClientRepository = (): AllClientRepositoryInterface => {
+  class AllClientRepository implements AllClientRepositoryInterface {
     async all (): Promise<ClientModel[]> {
       return new Promise(resolve => resolve([{
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
