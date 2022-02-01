@@ -1,6 +1,6 @@
-import { ClientModel } from '@/domain/models/client-model';
+import { ClientModel } from '@/domain/models/client-model'
 import AllClientInterface from '@/domain/usecases/all-client-interface'
-import { AllClientRepository } from '@/data/protocols/db/all-client-repository';
+import { AllClientRepository } from '@/data/protocols/db/all-client-repository'
 
 export class DbAllClientUsecase implements AllClientInterface {
   constructor (

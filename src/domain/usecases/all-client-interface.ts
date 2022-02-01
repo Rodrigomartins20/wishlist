@@ -1,5 +1,5 @@
 import { ClientModel } from '../models/client-model'
 
 export default interface AllClientInterface {
-  all (): Promise<ClientModel[]>;
+  all (): Promise<ClientModel[]>
 }
