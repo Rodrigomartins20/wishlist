@@ -4,11 +4,11 @@ import { FindClientRepositoryInterface } from '../../../src/data/protocols/db/fi
 import { DeleteClientRepositoryInterface } from '../../../src/data/protocols/db/delete-client-repository-interface'
 import { PostClientRepositoryInterface } from '../../../src/data/protocols/db/post-client-repository-interface'
 import { UpdateClientRepositoryInterface } from '../../../src/data/protocols/db/update-client-repository-interface'
-import { mockAllClientRepository } from '../../../__mocks__/all-client-repository-mock'
-import { mockFindClientRepository } from '../../../__mocks__/find-client-repository-mock'
-import { mockDeleteClientRepository } from '../../../__mocks__/delete-client-repository-mock'
-import { mockPostClientRepository } from '../../../__mocks__/post-client-repository-mock'
-import { mockUpdateClientRepository } from '../../../__mocks__/update-client-repository-mock'
+import { mockAllClientRepository } from '../../../__mocks__/repository/all-client-repository-mock'
+import { mockFindClientRepository } from '../../../__mocks__/repository/find-client-repository-mock'
+import { mockDeleteClientRepository } from '../../../__mocks__/repository/delete-client-repository-mock'
+import { mockPostClientRepository } from '../../../__mocks__/repository/post-client-repository-mock'
+import { mockUpdateClientRepository } from '../../../__mocks__/repository/update-client-repository-mock'
 
 type SutTypes = {
   sut: DbAllClientUsecase,

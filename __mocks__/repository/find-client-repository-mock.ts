@@ -1,5 +1,5 @@
-import { FindClientRepositoryInterface } from '../src/data/protocols/db/find-client-repository-interface'
-import { ClientModel } from '../src/domain/models/client-model'
+import { FindClientRepositoryInterface } from '../../src/data/protocols/db/find-client-repository-interface'
+import { ClientModel } from '../../src/domain/models/client-model'
 
 export const mockFindClientRepository = (): FindClientRepositoryInterface => {
   class FindClientRepository implements FindClientRepositoryInterface {

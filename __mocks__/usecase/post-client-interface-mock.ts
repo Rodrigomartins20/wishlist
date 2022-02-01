@@ -1,5 +1,5 @@
-import { ClientModel } from '../src/domain/models/client-model'
-import PostClientInterface from '../src/domain/usecases/post-client-interface'
+import { ClientModel } from '../../src/domain/models/client-model'
+import PostClientInterface from '../../src/domain/usecases/post-client-interface'
 
 export const mockPostClientInterface = (): PostClientInterface => {
   class PostClient implements PostClientInterface {

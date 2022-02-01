@@ -1,5 +1,5 @@
-import { ClientModel } from '../src/domain/models/client-model'
-import UpdateClientInterface from '../src/domain/usecases/update-client-interface'
+import { ClientModel } from '../../src/domain/models/client-model'
+import UpdateClientInterface from '../../src/domain/usecases/update-client-interface'
 
 export const mockUpdateClientInterface = (): UpdateClientInterface => {
   class UpdateClient implements UpdateClientInterface {

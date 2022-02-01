@@ -1,4 +1,4 @@
-import DeleteClientInterface from '../src/domain/usecases/delete-client-interface'
+import DeleteClientInterface from '../../src/domain/usecases/delete-client-interface'
 
 export const mockDeleteClientInterface = (): DeleteClientInterface => {
   class DeleteClient implements DeleteClientInterface {

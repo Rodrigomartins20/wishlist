@@ -4,11 +4,11 @@ import UpdateClientInterface from '../../../src/domain/usecases/update-client-in
 import PostClientInterface from '../../../src/domain/usecases/post-client-interface'
 import DeleteClientInterface from '../../../src/domain/usecases/delete-client-interface'
 import ClientController from '../../../src/presentation/controllers/client-controller'
-import { mockUpdateClientInterface } from '../../../__mocks__/update-client-interface-mock'
-import { mockAllClientInterface } from '../../../__mocks__/all-client-interface-mock'
-import { mockFindClientInterface } from '../../../__mocks__/find-client-interface-mock'
-import { mockPostClientInterface } from '../../../__mocks__/post-client-interface-mock'
-import { mockDeleteClientInterface } from '../../../__mocks__/delete-client-interface-mock'
+import { mockUpdateClientInterface } from '../../../__mocks__/usecase/update-client-interface-mock'
+import { mockAllClientInterface } from '../../../__mocks__/usecase/all-client-interface-mock'
+import { mockFindClientInterface } from '../../../__mocks__/usecase/find-client-interface-mock'
+import { mockPostClientInterface } from '../../../__mocks__/usecase/post-client-interface-mock'
+import { mockDeleteClientInterface } from '../../../__mocks__/usecase/delete-client-interface-mock'
 
 type SutTypes = {
   sut: ClientController,

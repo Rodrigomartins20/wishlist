@@ -1,5 +1,5 @@
-import { AllClientRepositoryInterface } from '../src/data/protocols/db/all-client-repository-interface'
-import { ClientModel } from '../src/domain/models/client-model'
+import { AllClientRepositoryInterface } from '../../src/data/protocols/db/all-client-repository-interface'
+import { ClientModel } from '../../src/domain/models/client-model'
 
 export const mockAllClientRepository = (): AllClientRepositoryInterface => {
   class AllClientRepository implements AllClientRepositoryInterface {
