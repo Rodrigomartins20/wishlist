@@ -1,4 +1,5 @@
 import AllClientInterface from '@/domain/usecases/all-client-interface'
+import DeleteClientInterface from '@/domain/usecases/delete-client-interface'
 import FindClientInterface from '@/domain/usecases/find-client-interface'
 import PostClientInterface from '@/domain/usecases/post-client-interface'
 import UpdateClientInterface from '@/domain/usecases/update-client-interface'
@@ -9,6 +10,7 @@ export default class ClientController {
     private readonly allClient: AllClientInterface,
     private readonly updateClient: UpdateClientInterface,
     private readonly postClient: PostClientInterface,
+    private readonly deleteClient: DeleteClientInterface
   ) {}
 
   async find(id: string) {
@@ -46,6 +48,14 @@ export default class ClientController {
         name: client.name,
         email: client.email
       })
+    } catch (error) {
+      return { message: 'oops', error: error.message }
+    }
+  }
+
+  async delete(id) {
+    try {
+      await this.deleteClient.delete(id)
     } catch (error) {
       return { message: 'oops', error: error.message }
     }

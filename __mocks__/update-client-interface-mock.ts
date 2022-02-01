@@ -4,11 +4,11 @@ import UpdateClientInterface from '../src/domain/usecases/update-client-interfac
 export const mockUpdateClientInterface = (): UpdateClientInterface => {
   class UpdateClient implements UpdateClientInterface {
     async update (client: ClientModel): Promise<ClientModel> {
-      return {
+      return new Promise(resolve => resolve({
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any name',
         email: 'any@mail.com'
-      }
+      }))
     }
   }
   return new UpdateClient()
