@@ -26,5 +26,14 @@ describe('Db All Client Usecase', () => {
 
       expect(allClientRepositorySpy).toHaveBeenCalledTimes(1)
     })
+
+    it('should throw if ClientRepository throws', async () => {
+      const { sut, allClientRepositoryStub } = makeSut()
+      jest.spyOn(allClientRepositoryStub, 'all').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
+
+      const promise = sut.all()
+
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
