@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  wishlist_mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wishlist
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data:/data/wishlist_mysql
