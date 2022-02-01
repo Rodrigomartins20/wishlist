@@ -3,10 +3,12 @@ import { AllClientRepositoryInterface } from '../../../src/data/protocols/db/all
 import { FindClientRepositoryInterface } from '../../../src/data/protocols/db/find-client-repository-interface'
 import { DeleteClientRepositoryInterface } from '../../../src/data/protocols/db/delete-client-repository-interface'
 import { PostClientRepositoryInterface } from '../../../src/data/protocols/db/post-client-repository-interface'
+import { UpdateClientRepositoryInterface } from '../../../src/data/protocols/db/update-client-repository-interface'
 import { mockAllClientRepository } from '../../../__mocks__/all-client-repository-mock'
 import { mockFindClientRepository } from '../../../__mocks__/find-client-repository-mock'
 import { mockDeleteClientRepository } from '../../../__mocks__/delete-client-repository-mock'
 import { mockPostClientRepository } from '../../../__mocks__/post-client-repository-mock'
+import { mockUpdateClientRepository } from '../../../__mocks__/update-client-repository-mock'
 
 type SutTypes = {
   sut: DbAllClientUsecase,
@@ -14,9 +16,11 @@ type SutTypes = {
   findClientRepositoryStub: FindClientRepositoryInterface
   deleteClientRepositoryStub: DeleteClientRepositoryInterface
   postClientRepositoryStub: PostClientRepositoryInterface
+  updateClientRepositoryStub: UpdateClientRepositoryInterface
 }
 
 const makeSut = (): SutTypes => {
+  const updateClientRepositoryStub = mockUpdateClientRepository()
   const postClientRepositoryStub = mockPostClientRepository()
   const deleteClientRepositoryStub = mockDeleteClientRepository()
   const findClientRepositoryStub = mockFindClientRepository()
@@ -25,14 +29,16 @@ const makeSut = (): SutTypes => {
     allClientRepositoryStub,
     findClientRepositoryStub,
     deleteClientRepositoryStub,
-    postClientRepositoryStub
+    postClientRepositoryStub,
+    updateClientRepositoryStub
   )
   return {
     sut,
     allClientRepositoryStub,
     findClientRepositoryStub,
     deleteClientRepositoryStub,
-    postClientRepositoryStub
+    postClientRepositoryStub,
+    updateClientRepositoryStub
   }
 }
 
@@ -152,6 +158,50 @@ describe('Db All Client Usecase', () => {
       const { sut } = makeSut()
 
       const response = await sut.post({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      expect(response).toEqual({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+    })
+  })
+
+  describe('Update', () => {
+    it('should call ClientRepository', async () => {
+      const { sut, updateClientRepositoryStub } = makeSut()
+      const updateClientRepositorySpy = jest.spyOn(updateClientRepositoryStub, 'update')
+
+      await sut.update({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      expect(updateClientRepositorySpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('should throw if ClientRepository throws', async () => {
+      const { sut, updateClientRepositoryStub } = makeSut()
+      jest.spyOn(updateClientRepositoryStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
+
+      const promise = sut.update({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      await expect(promise).rejects.toThrow()
+    })
+
+    it('should return ClientRepository values', async () => {
+      const { sut } = makeSut()
+
+      const response = await sut.update({
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any name',
         email: 'any@mail.com'
