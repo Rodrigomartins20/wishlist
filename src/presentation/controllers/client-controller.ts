@@ -4,6 +4,6 @@ export default class ClientController {
   constructor (private readonly findClient: FindClientInterface) {}
 
   async find(id: string) {
-    this.findClient.find(id)
+    return await this.findClient.find(id)
   }
 }
