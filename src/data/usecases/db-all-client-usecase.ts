@@ -7,11 +7,6 @@ export class DbAllClientUsecase implements AllClientInterface {
     private readonly allClientRepository: AllClientRepository
   ) {}
   async all(): Promise<ClientModel[]> {
-    await this.allClientRepository.all()
-    return new Promise(resolve => resolve([{
-      id: '',
-      name: '',
-      email: ''
-    }]))
+    return await this.allClientRepository.all()
   }
 }
