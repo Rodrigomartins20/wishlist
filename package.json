@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.13",
+    "dotenv": "^15.0.0",
     "i": "^0.3.7",
     "jest": "^27.4.7",
     "mysql2": "^2.3.3",
