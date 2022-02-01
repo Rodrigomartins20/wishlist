@@ -1,28 +1,33 @@
 import AllClientInterface from '../src/domain/usecases/all-client-interface'
 import FindClientInterface from '../src/domain/usecases/find-client-interface'
 import UpdateClientInterface from '../src/domain/usecases/update-client-interface'
+import PostClientInterface from '../src/domain/usecases/post-client-interface'
 import ClientController from '../src/presentation/controllers/client-controller'
 import { mockUpdateClientInterface } from '../__mocks__/update-client-interface-mock'
 import { mockAllClientInterface } from '../__mocks__/all-client-interface-mock'
 import { mockFindClientInterface } from '../__mocks__/find-client-interface-mock'
+import { mockPostClientInterface } from '../__mocks__/post-client-interface-mock'
 
 type SutTypes = {
   sut: ClientController,
   findClientStub: FindClientInterface
   allClientStub: AllClientInterface
   updateClientStub: UpdateClientInterface
+  postClientStub: PostClientInterface
 }
 
 const makeSut = (): SutTypes => {
+  const postClientStub = mockPostClientInterface()
   const updateClientStub = mockUpdateClientInterface()
   const allClientStub = mockAllClientInterface()
   const findClientStub = mockFindClientInterface()
-  const sut = new ClientController(findClientStub, allClientStub, updateClientStub)
+  const sut = new ClientController(findClientStub, allClientStub, updateClientStub, postClientStub)
   return {
     sut,
     findClientStub,
     allClientStub,
-    updateClientStub
+    updateClientStub,
+    postClientStub
   }
 }
 
@@ -134,6 +139,57 @@ describe('Client Controller', () => {
       jest.spyOn(updateClientStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
       const response = await sut.update({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      expect(response).toEqual({
+        message: 'oops',
+        error: 'any message'
+      })
+    })
+  })
+
+  describe('Post', () => {
+    it('should call PostClient with correct values', async () => {
+      const { sut, postClientStub } = makeSut()
+      const postClientSpy = jest.spyOn(postClientStub, 'post')
+
+      await sut.post({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      expect(postClientSpy).toHaveBeenCalledWith({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+    })
+
+    it('should return PostClient values', async () => {
+      const { sut } = makeSut()
+
+      const response = await sut.post({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      expect(response).toEqual({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+    })
+
+    it('should return an error if PostClient throws', async () => {
+      const { sut, postClientStub } = makeSut()
+      jest.spyOn(postClientStub, 'post').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
+
+      const response = await sut.post({
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any name',
         email: 'any@mail.com'
