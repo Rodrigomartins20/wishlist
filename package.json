@@ -13,8 +13,6 @@
   },
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "test:unit": "jest --passWithNoTests --silent --noStackTrace --runInBand --watch -c jest-unit.config.js",
-    "test:integration": "jest --passWithNoTests --noStackTrace --runInBand --watch -c jest-integration.config.js",
-    "test:ci": "npm test -- --coverage"
+    "test": "jest"
   }
 }
