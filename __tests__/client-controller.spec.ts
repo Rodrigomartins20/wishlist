@@ -1,47 +1,10 @@
-import { ClientModel } from '../src/domain/models/client-model'
 import AllClientInterface from '../src/domain/usecases/all-client-interface'
 import FindClientInterface from '../src/domain/usecases/find-client-interface'
 import UpdateClientInterface from '../src/domain/usecases/update-client-interface'
 import ClientController from '../src/presentation/controllers/client-controller'
-
-const mockUpdateClientInterface = (): UpdateClientInterface => {
-  class UpdateClient implements UpdateClientInterface {
-    async update (client: ClientModel): Promise<ClientModel> {
-      return {
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }
-    }
-  }
-  return new UpdateClient()
-}
-
-const mockAllClientInterface = (): AllClientInterface => {
-  class AllClient implements AllClientInterface {
-    async all (): Promise<ClientModel[]> {
-      return [{
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }]
-    }
-  }
-  return new AllClient()
-}
-
-const mockFindClientInterface = (): FindClientInterface => {
-  class FindClient implements FindClientInterface {
-    async find (id: string): Promise<ClientModel> {
-      return new Promise(resolve => resolve({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }))
-    }
-  }
-  return new FindClient()
-}
+import { mockUpdateClientInterface } from '../__mocks__/update-client-interface-mock'
+import { mockAllClientInterface } from '../__mocks__/all-client-interface-mock'
+import { mockFindClientInterface } from '../__mocks__/find-client-interface-mock'
 
 type SutTypes = {
   sut: ClientController,
