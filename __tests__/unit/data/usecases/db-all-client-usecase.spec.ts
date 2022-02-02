@@ -1,4 +1,4 @@
-import { DbAllClientUsecase } from '../../../../src/data/usecases/db-all-client-usecase'
+import DbClientUsecase from '../../../../src/data/usecases/db-client-usecase'
 import { AllClientRepositoryInterface } from '../../../../src/data/protocols/db/all-client-repository-interface'
 import { FindClientRepositoryInterface } from '../../../../src/data/protocols/db/find-client-repository-interface'
 import { DeleteClientRepositoryInterface } from '../../../../src/data/protocols/db/delete-client-repository-interface'
@@ -11,7 +11,7 @@ import { mockPostClientRepository } from '../../../../__mocks__/repository/post-
 import { mockUpdateClientRepository } from '../../../../__mocks__/repository/update-client-repository-mock'
 
 type SutTypes = {
-  sut: DbAllClientUsecase,
+  sut: DbClientUsecase,
   allClientRepositoryStub: AllClientRepositoryInterface
   findClientRepositoryStub: FindClientRepositoryInterface
   deleteClientRepositoryStub: DeleteClientRepositoryInterface
@@ -25,7 +25,7 @@ const makeSut = (): SutTypes => {
   const deleteClientRepositoryStub = mockDeleteClientRepository()
   const findClientRepositoryStub = mockFindClientRepository()
   const allClientRepositoryStub = mockAllClientRepository()
-  const sut = new DbAllClientUsecase(
+  const sut = new DbClientUsecase(
     allClientRepositoryStub,
     findClientRepositoryStub,
     deleteClientRepositoryStub,
