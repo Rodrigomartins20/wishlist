@@ -5,7 +5,7 @@ import { ClientRepository } from '../../../../src/infra/db/repositories/client-r
 import { sequelize, Client } from '../../../../src/infra/db/sequelize/sequelize-helper'
 
 describe('Client Repository', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await sequelize.sync({ force: true })
   })
   afterAll(async () => {
@@ -26,6 +26,28 @@ describe('Client Repository', () => {
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any name',
         email: 'any@mail.com'
+      })
+    })
+  })
+  describe('Update', () => {
+    it('should update a client', async () => {
+      await Client.create({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+      const sut = new ClientRepository()
+
+      const response = await sut.update({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any other name',
+        email: 'any_other@mail.com'
+      })
+
+      expect(response).toEqual({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any other name',
+        email: 'any_other@mail.com'
       })
     })
   })
