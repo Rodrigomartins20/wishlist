@@ -68,4 +68,19 @@ describe('Client Repository', () => {
       expect(client.getDataValue('email')).toEqual('any@mail.com')
     })
   })
+  describe('Delete', () => {
+    it('should delete a client', async () => {
+      await Client.create({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+      const sut = new ClientRepository()
+
+      await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+
+      const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
+      expect(client).toEqual(null)
+    })
+  })
 })
