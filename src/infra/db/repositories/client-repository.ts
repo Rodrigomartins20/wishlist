@@ -26,6 +26,12 @@ export class ClientRepository implements AllClientRepositoryInterface, FindClien
     }, { where: { id: client.id } })
     return { ...client }
   }
-  post: (client: ClientModel) => Promise<ClientModel>;
+  async post (client: ClientModel): Promise<ClientModel> {
+    await sequelize.sync()
+    await Client.create({
+      ...client
+    })
+    return { ...client }
+  }
   delete: (id: string) => Promise<void>;
 }
