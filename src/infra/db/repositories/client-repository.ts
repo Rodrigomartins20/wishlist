@@ -7,7 +7,14 @@ import { ClientModel } from '@/domain/models/client-model'
 import { Client, sequelize } from '../sequelize/sequelize-helper'
 
 export class ClientRepository implements AllClientRepositoryInterface, FindClientRepositoryInterface, UpdateClientRepositoryInterface, PostClientRepositoryInterface, DeleteClientRepositoryInterface {
-  all: () => Promise<ClientModel[]>;
+  async all (): Promise<ClientModel[]> {
+    await sequelize.sync()
+    return (await Client.findAll( { attributes: ['id', 'name', 'email' ]})).map(client => ({
+      id: client.getDataValue('id'),
+      name: client.getDataValue('name'),
+      email: client.getDataValue('email')
+    }))
+  }
   async find (id: string): Promise<ClientModel> {
     await sequelize.sync()
     const client: Client = await Client.findOne({
