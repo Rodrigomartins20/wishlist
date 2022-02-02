@@ -1,8 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { ClientRepository } from '../../../../src/infra/db/repositories/client-repository'
-import { sequelize, Client } from '../../../../src/infra/db/sequelize/sequelize-helper'
+import { ClientRepository } from '../../../../../src/infra/db/repositories/client-repository'
+import { sequelize, Client } from '../../../../../src/infra/db/sequelize/sequelize-helper'
 
 describe('Client Repository', () => {
   beforeEach(async () => {
