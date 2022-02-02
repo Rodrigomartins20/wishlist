@@ -51,4 +51,21 @@ describe('Client Repository', () => {
       })
     })
   })
+  describe('Post', () => {
+    it('should post a client', async () => {
+      const sut = new ClientRepository()
+
+      await sut.post({
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      })
+
+      const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
+
+      expect(client.getDataValue('id')).toEqual('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      expect(client.getDataValue('name')).toEqual('any name')
+      expect(client.getDataValue('email')).toEqual('any@mail.com')
+    })
+  })
 })
