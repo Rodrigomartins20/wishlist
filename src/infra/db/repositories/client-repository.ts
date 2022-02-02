@@ -33,5 +33,8 @@ export class ClientRepository implements AllClientRepositoryInterface, FindClien
     })
     return { ...client }
   }
-  delete: (id: string) => Promise<void>;
+  async delete (id: string): Promise<void> {
+    await sequelize.sync()
+    await Client.destroy({ where: { id } })
+  }
 }
