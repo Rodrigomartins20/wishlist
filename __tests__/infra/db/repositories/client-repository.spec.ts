@@ -38,17 +38,17 @@ describe('Client Repository', () => {
       })
       const sut = new ClientRepository()
 
-      const response = await sut.update({
+      await sut.update({
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any other name',
         email: 'any_other@mail.com'
       })
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any other name',
-        email: 'any_other@mail.com'
-      })
+      const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
+
+      expect(client.getDataValue('id')).toEqual('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      expect(client.getDataValue('name')).toEqual('any other name')
+      expect(client.getDataValue('email')).toEqual('any_other@mail.com')
     })
   })
   describe('Post', () => {
