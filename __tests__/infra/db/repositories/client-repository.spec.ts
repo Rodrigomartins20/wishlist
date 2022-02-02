@@ -11,6 +11,32 @@ describe('Client Repository', () => {
   afterAll(async () => {
     await sequelize.close()
   })
+  describe('All', () => {
+    it('should return all clients', async () => {
+      await Client.bulkCreate([{
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      }, {
+        id: '167f49ac-5bbc-4e01-8685-07a245462ef9',
+        name: 'other name',
+        email: 'other@mail.com'
+      }])
+      const sut = new ClientRepository()
+
+      const response = await sut.all()
+
+      expect(response).toEqual([{
+        id: '167f49ac-5bbc-4e01-8685-07a245462ef9',
+        name: 'other name',
+        email: 'other@mail.com'
+      }, {
+        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
+        name: 'any name',
+        email: 'any@mail.com'
+      }])
+    })
+  })
   describe('Find', () => {
     it('should find a client', async () => {
       await Client.create({
