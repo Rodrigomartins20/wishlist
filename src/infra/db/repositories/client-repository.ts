@@ -19,7 +19,13 @@ export class ClientRepository implements AllClientRepositoryInterface, FindClien
       email: client.getDataValue('email')
     }
   }
-  update: (client: ClientModel) => Promise<ClientModel>;
+  async update (client: ClientModel): Promise<ClientModel> {
+    await sequelize.sync()
+    await Client.update({
+      ...client
+    }, { where: { id: client.id } })
+    return { ...client }
+  }
   post: (client: ClientModel) => Promise<ClientModel>;
   delete: (id: string) => Promise<void>;
 }
