@@ -15,7 +15,10 @@ export default class DbPostClientWishlistUsecase implements PostClientWishlistIn
     if (! productExists) {
       throw new Error('product doesnt exists')
     }
-    await this.findWishlistByProductIdRepository.findWishlistByProductId(clientWishlist.product)
+    const productAlreadyOnWishlist = await this.findWishlistByProductIdRepository.findWishlistByProductId(clientWishlist.product)
+    if (productAlreadyOnWishlist) {
+      throw new Error('product already on client wishlist')
+    }
     return this.postClientWishlistRepository.post(clientWishlist)
   }
 }
