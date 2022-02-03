@@ -1,5 +1,5 @@
 import DbUpdateClientUsecase from '../../../../src/data/usecases/db-update-client-usecase'
-import { UpdateClientRepositoryInterface } from '../../../../src/data/protocols/db/update-client-repository-interface'
+import UpdateClientRepositoryInterface from '../../../../src/data/interfaces/update-client-repository-interface'
 import { mockUpdateClientRepository } from '../../../../__mocks__/repository/update-client-repository-mock'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 

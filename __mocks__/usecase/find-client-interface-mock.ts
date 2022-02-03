@@ -1,5 +1,5 @@
-import { ClientModel } from '../../src/domain/models/client-model'
-import FindClientInterface from '../../src/domain/usecases/find-client-interface'
+import ClientModel from '../../src/domain/models/client-model'
+import FindClientInterface from '../../src/domain/interfaces/find-client-interface'
 import makeFakeClient from '../objects/make-fake-client'
 
 export const mockFindClientInterface = (): FindClientInterface => {

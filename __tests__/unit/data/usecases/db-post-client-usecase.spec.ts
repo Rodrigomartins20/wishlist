@@ -1,5 +1,5 @@
 import DbPostClientUsecase from '../../../../src/data/usecases/db-post-client-usecase'
-import { PostClientRepositoryInterface } from '../../../../src/data/protocols/db/post-client-repository-interface'
+import PostClientRepositoryInterface from '../../../../src/data/interfaces/post-client-repository-interface'
 import { mockPostClientRepository } from '../../../../__mocks__/repository/post-client-repository-mock'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 

@@ -1,5 +1,5 @@
-import { DeleteClientRepositoryInterface } from '@/data/protocols/db/delete-client-repository-interface'
-import DeleteClientInterface from '@/domain/usecases/delete-client-interface'
+import DeleteClientRepositoryInterface from '@/data/interfaces/delete-client-repository-interface'
+import DeleteClientInterface from '@/domain/interfaces/delete-client-interface'
 
 export default class DbDeleteClientUsecase implements DeleteClientInterface {
   constructor (

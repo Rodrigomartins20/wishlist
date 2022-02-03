@@ -1,6 +1,6 @@
-import { ClientModel } from '@/domain/models/client-model'
-import { PostClientRepositoryInterface } from '@/data/protocols/db/post-client-repository-interface'
-import PostClientInterface from '@/domain/usecases/post-client-interface'
+import ClientModel from '@/domain/models/client-model'
+import PostClientRepositoryInterface from '@/data/interfaces/post-client-repository-interface'
+import PostClientInterface from '@/domain/interfaces/post-client-interface'
 
 export default class DbPostClientUsecase implements PostClientInterface {
   constructor (

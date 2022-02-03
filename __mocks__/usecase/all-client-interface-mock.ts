@@ -1,5 +1,5 @@
-import { ClientModel } from '../../src/domain/models/client-model'
-import AllClientInterface from '../../src/domain/usecases/all-client-interface'
+import ClientModel from '../../src/domain/models/client-model'
+import AllClientInterface from '../../src/domain/interfaces/all-client-interface'
 import makeFakeClient from '../objects/make-fake-client'
 
 export const mockAllClientInterface = (): AllClientInterface => {

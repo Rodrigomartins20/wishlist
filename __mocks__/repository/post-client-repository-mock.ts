@@ -1,5 +1,5 @@
-import { ClientModel } from '../../src/domain/models/client-model'
-import { PostClientRepositoryInterface } from '../../src/data/protocols/db/post-client-repository-interface'
+import ClientModel from '../../src/domain/models/client-model'
+import PostClientRepositoryInterface from '../../src/data/interfaces/post-client-repository-interface'
 import makeFakeClient from '../objects/make-fake-client'
 
 export const mockPostClientRepository = (): PostClientRepositoryInterface => {

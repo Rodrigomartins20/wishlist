@@ -1,5 +1,5 @@
 import DbFindClientUsecase from '../../../../src/data/usecases/db-find-client-usecase'
-import { FindClientRepositoryInterface } from '../../../../src/data/protocols/db/find-client-repository-interface'
+import FindClientRepositoryInterface from '../../../../src/data/interfaces/find-client-repository-interface'
 import { mockFindClientRepository } from '../../../../__mocks__/repository/find-client-repository-mock'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 

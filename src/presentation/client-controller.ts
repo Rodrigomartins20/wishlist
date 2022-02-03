@@ -1,8 +1,8 @@
-import AllClientInterface from '@/domain/usecases/all-client-interface'
-import DeleteClientInterface from '@/domain/usecases/delete-client-interface'
-import FindClientInterface from '@/domain/usecases/find-client-interface'
-import PostClientInterface from '@/domain/usecases/post-client-interface'
-import UpdateClientInterface from '@/domain/usecases/update-client-interface'
+import AllClientInterface from '@/domain/interfaces/all-client-interface'
+import DeleteClientInterface from '@/domain/interfaces/delete-client-interface'
+import FindClientInterface from '@/domain/interfaces/find-client-interface'
+import PostClientInterface from '@/domain/interfaces/post-client-interface'
+import UpdateClientInterface from '@/domain/interfaces/update-client-interface'
 
 export default class ClientController {
   constructor (

@@ -1,9 +1,9 @@
-import { AllClientRepositoryInterface } from '@/data/protocols/db/all-client-repository-interface'
-import { DeleteClientRepositoryInterface } from '@/data/protocols/db/delete-client-repository-interface'
-import { FindClientRepositoryInterface } from '@/data/protocols/db/find-client-repository-interface'
-import { PostClientRepositoryInterface } from '@/data/protocols/db/post-client-repository-interface'
-import { UpdateClientRepositoryInterface } from '@/data/protocols/db/update-client-repository-interface'
-import { ClientModel } from '@/domain/models/client-model'
+import AllClientRepositoryInterface  from '@/data/interfaces/all-client-repository-interface'
+import DeleteClientRepositoryInterface from '@/data/interfaces/delete-client-repository-interface'
+import FindClientRepositoryInterface from '@/data/interfaces/find-client-repository-interface'
+import PostClientRepositoryInterface from '@/data/interfaces/post-client-repository-interface'
+import UpdateClientRepositoryInterface from '@/data/interfaces/update-client-repository-interface'
+import ClientModel from '@/domain/models/client-model'
 import { Client, sequelize } from '../sequelize/sequelize-helper'
 
 export class ClientRepository implements AllClientRepositoryInterface, FindClientRepositoryInterface, UpdateClientRepositoryInterface, PostClientRepositoryInterface, DeleteClientRepositoryInterface {

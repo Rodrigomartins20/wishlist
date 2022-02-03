@@ -1,5 +1,5 @@
 import DbDeleteClientUsecase from '../../../../src/data/usecases/db-delete-client-usecase'
-import { DeleteClientRepositoryInterface } from '../../../../src/data/protocols/db/delete-client-repository-interface'
+import DeleteClientRepositoryInterface from '../../../../src/data/interfaces/delete-client-repository-interface'
 import { mockDeleteClientRepository } from '../../../../__mocks__/repository/delete-client-repository-mock'
 
 type SutTypes = {

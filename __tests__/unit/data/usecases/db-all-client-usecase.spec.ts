@@ -1,5 +1,5 @@
 import DbAllClientUsecase from '../../../../src/data/usecases/db-all-client-usecase'
-import { AllClientRepositoryInterface } from '../../../../src/data/protocols/db/all-client-repository-interface'
+import AllClientRepositoryInterface  from '../../../../src/data/interfaces/all-client-repository-interface'
 import { mockAllClientRepository } from '../../../../__mocks__/repository/all-client-repository-mock'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 
