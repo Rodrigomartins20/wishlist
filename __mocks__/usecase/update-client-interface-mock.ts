@@ -4,7 +4,7 @@ import makeFakeClient from '../objects/make-fake-client'
 
 const mockUpdateClientInterface = (): UpdateClientInterface => {
   class UpdateClient implements UpdateClientInterface {
-    async update (client: ClientModel): Promise<ClientModel> {
+    async update (clientData: ClientModel): Promise<ClientModel> {
       return new Promise(resolve => resolve(makeFakeClient()))
     }
   }

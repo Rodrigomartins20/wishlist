@@ -3,6 +3,12 @@ import DeleteClientInterface from '@/domain/interfaces/delete-client-interface'
 import FindClientInterface from '@/domain/interfaces/find-client-interface'
 import PostClientInterface from '@/domain/interfaces/post-client-interface'
 import UpdateClientInterface from '@/domain/interfaces/update-client-interface'
+import HttpRequest from './types/http-request'
+import HttpResponse from './types/http-response'
+import Accepted from './responses/accepted'
+import Created from './responses/created'
+import Ok from './responses/ok'
+import ServerError from './responses/server-error'
 
 export default class ClientController {
   constructor (
@@ -13,51 +19,55 @@ export default class ClientController {
     private readonly deleteClientUsecase: DeleteClientInterface
   ) {}
 
-  async find(id: string) {
+  async find(request: HttpRequest): Promise<HttpResponse> {
     try {
-      return await this.findClientUsecase.find(id)
+      const client = await this.findClientUsecase.find(request.body.id)
+      return Ok(client)
     } catch (error) {
-      return { message: 'oops', error: error.message }
+      return ServerError(error)
     }
   }
 
-  async all() {
+  async all(request: HttpRequest): Promise<HttpResponse> {
     try {
-      return await this.allClientUsecase.all()
+      const clients = await this.allClientUsecase.all()
+      return Ok(clients)
     } catch (error) {
-      return { message: 'oops', error: error.message }
+      return ServerError(error)
     }
   }
 
-  async update(client) {
+  async update(request: HttpRequest): Promise<HttpResponse> {
     try {
-      return await this.updateClientUsecase.update({
-        id: client.id,
-        name: client.name,
-        email: client.email
+      const updatedClient = await this.updateClientUsecase.update({
+        id: request.body.id,
+        name: request.body.name,
+        email: request.body.email
       })
+      return Accepted({ ...updatedClient })
     } catch (error) {
-      return { message: 'oops', error: error.message }
+      return ServerError(error)
     }
   }
 
-  async post(client) {
+  async post(request: HttpRequest): Promise<HttpResponse> {
     try {
-      return await this.postClientUsecase.post({
-        id: client.id,
-        name: client.name,
-        email: client.email
+      const createdClient = await this.postClientUsecase.post({
+        name: request.body.name,
+        email: request.body.email
       })
+      return Created({ ...createdClient })
     } catch (error) {
-      return { message: 'oops', error: error.message }
+      return ServerError(error)
     }
   }
 
-  async delete(id) {
+  async delete(request: HttpRequest): Promise<HttpResponse> {
     try {
-      await this.deleteClientUsecase.delete(id)
+      await this.deleteClientUsecase.delete(request.body.id)
+      return Accepted({})
     } catch (error) {
-      return { message: 'oops', error: error.message }
+      return ServerError(error)
     }
   }
 }

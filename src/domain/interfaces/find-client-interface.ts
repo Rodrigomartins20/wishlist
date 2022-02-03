@@ -1,5 +1,5 @@
-import ClientModel from '../models/client-model'
+import ClientModel from '@/domain/models/client-model'
 
 export default interface FindClientInterface {
-  find (id: string): Promise<ClientModel>
+  find (clientId: string): Promise<ClientModel>
 }

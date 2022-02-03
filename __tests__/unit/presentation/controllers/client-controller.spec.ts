@@ -44,12 +44,12 @@ const makeSut = (): SutTypes => {
 }
 
 describe('Client Controller', () => {
-  describe('Find', () => {
+  describe('find()', () => {
     it('should call FindClient with correct values', async () => {
       const { sut, findClientStub } = makeSut()
       const findClientSpy = jest.spyOn(findClientStub, 'find')
 
-      await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
 
       expect(findClientSpy).toHaveBeenCalledWith('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
     })
@@ -57,59 +57,77 @@ describe('Client Controller', () => {
     it('should return FindClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      const response = await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
 
-      expect(response).toEqual(makeFakeClient())
+      expect(response).toEqual({
+        statusCode: 200,
+        body: {
+          ...makeFakeClient()
+        }
+      })
     })
 
     it('should return an error if FindClient throws', async () => {
       const { sut, findClientStub } = makeSut()
       jest.spyOn(findClientStub, 'find').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      const response = await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
 
       expect(response).toEqual({
-        message: 'oops',
-        error: 'any message'
+        statusCode: 500,
+        body: {
+          message: 'oops, there was an error in our side',
+          error: 'any message'
+        }
       })
     })
   })
 
-  describe('All', () => {
+  describe('all()', () => {
     it('should call AllClient with correct values', async () => {
       const { sut, allClientStub } = makeSut()
       const allClientSpy = jest.spyOn(allClientStub, 'all')
 
-      await sut.all()
+      await sut.all({})
 
       expect(allClientSpy).toHaveBeenCalledTimes(1)
     })
     it('should return AllClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.all()
+      const response = await sut.all({})
 
-      expect(response).toEqual([makeFakeClient()])
+      expect(response).toEqual({
+        statusCode: 200,
+        body: [makeFakeClient()]
+      })
     })
     it('should return an error if AllClient throws', async () => {
       const { sut, allClientStub } = makeSut()
       jest.spyOn(allClientStub, 'all').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.all()
+      const response = await sut.all({})
 
       expect(response).toEqual({
-        message: 'oops',
-        error: 'any message'
+        statusCode: 500,
+        body: {
+          message: 'oops, there was an error in our side',
+          error: 'any message'
+        }
       })
     })
   })
 
-  describe('Update', () => {
+  describe('update()', () => {
     it('should call UpdateClient with correct values', async () => {
       const { sut, updateClientStub } = makeSut()
       const updateClientSpy = jest.spyOn(updateClientStub, 'update')
 
-      await sut.update(makeFakeClient())
+      await sut.update({
+        body: {
+          ...makeFakeClient()
+        }
+      })
 
       expect(updateClientSpy).toHaveBeenCalledWith(makeFakeClient())
     })
@@ -117,61 +135,100 @@ describe('Client Controller', () => {
     it('should return UpdateClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.update(makeFakeClient())
+      const response = await sut.update({
+        body: {
+          ...makeFakeClient()
+        }
+      })
 
-      expect(response).toEqual(makeFakeClient())
+      expect(response).toEqual({
+        statusCode: 202,
+        body: {
+          ...makeFakeClient()
+        }
+      })
     })
 
     it('should return an error if UpdateClient throws', async () => {
       const { sut, updateClientStub } = makeSut()
       jest.spyOn(updateClientStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.update(makeFakeClient())
+      const response = await sut.update({
+        body: {
+          ...makeFakeClient()
+        }
+      })
 
       expect(response).toEqual({
-        message: 'oops',
-        error: 'any message'
+        statusCode: 500,
+        body: {
+          message: 'oops, there was an error in our side',
+          error: 'any message'
+        }
       })
     })
   })
 
-  describe('Post', () => {
+  describe('post()', () => {
     it('should call PostClient with correct values', async () => {
       const { sut, postClientStub } = makeSut()
       const postClientSpy = jest.spyOn(postClientStub, 'post')
 
-      await sut.post(makeFakeClient())
+      const { name, email } = makeFakeClient()
+      await sut.post({
+        body: { name, email }
+      })
 
-      expect(postClientSpy).toHaveBeenCalledWith(makeFakeClient())
+      expect(postClientSpy).toHaveBeenCalledWith({ name, email })
     })
 
     it('should return PostClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.post(makeFakeClient())
+      const response = await sut.post({
+        body: {
+          ...makeFakeClient()
+        }
+      })
 
-      expect(response).toEqual(makeFakeClient())
+      expect(response).toEqual({
+        statusCode: 201,
+        body: {
+          ...makeFakeClient()
+        }
+      })
     })
 
     it('should return an error if PostClient throws', async () => {
       const { sut, postClientStub } = makeSut()
       jest.spyOn(postClientStub, 'post').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.post(makeFakeClient())
+      const response = await sut.post({
+        body: {
+          ...makeFakeClient()
+        }
+      })
 
       expect(response).toEqual({
-        message: 'oops',
-        error: 'any message'
+        statusCode: 500,
+        body: {
+          message: 'oops, there was an error in our side',
+          error: 'any message'
+        }
       })
     })
   })
   
-  describe('Delete', () => {
+  describe('delete()', () => {
     it('should call DeleteClient with correct values', async () => {
       const { sut, deleteClientStub } = makeSut()
       const deleteClientSpy = jest.spyOn(deleteClientStub, 'delete')
 
-      await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      await sut.delete({
+        body: {
+          id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7'
+        }
+      })
 
       expect(deleteClientSpy).toHaveBeenCalledWith('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
     })
@@ -180,11 +237,18 @@ describe('Client Controller', () => {
       const { sut, deleteClientStub } = makeSut()
       jest.spyOn(deleteClientStub, 'delete').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      const response = await sut.delete({
+        body: {
+          id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7'
+        }
+      })
 
       expect(response).toEqual({
-        message: 'oops',
-        error: 'any message'
+        statusCode: 500,
+        body: {
+          message: 'oops, there was an error in our side',
+          error: 'any message'
+        }
       })
     })
   })

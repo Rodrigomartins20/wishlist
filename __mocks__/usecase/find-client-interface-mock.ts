@@ -4,7 +4,7 @@ import makeFakeClient from '../objects/make-fake-client'
 
 const mockFindClientInterface = (): FindClientInterface => {
   class FindClient implements FindClientInterface {
-    async find (id: string): Promise<ClientModel> {
+    async find (clientId: string): Promise<ClientModel> {
       return new Promise(resolve => resolve(makeFakeClient()))
     }
   }

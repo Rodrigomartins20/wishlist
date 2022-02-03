@@ -1,5 +1,5 @@
-import ClientModel from '../models/client-model'
+import ClientModel from '@/domain/models/client-model'
 
 export default interface UpdateClientInterface {
-  update (client: ClientModel): Promise<ClientModel>
+  update (clientData: ClientModel): Promise<ClientModel>
 }

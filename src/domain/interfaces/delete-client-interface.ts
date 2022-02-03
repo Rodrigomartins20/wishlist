@@ -1,3 +1,3 @@
 export default interface DeleteClientInterface {
-  delete (id: string): Promise<void>
+  delete (clientId: string): Promise<void>
 }

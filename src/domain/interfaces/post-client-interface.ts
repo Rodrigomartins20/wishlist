@@ -1,5 +1,7 @@
-import ClientModel from '../models/client-model'
+import ClientModel from '@/domain/models/client-model'
+
+type ClientData = Omit<ClientModel, 'id'>
 
 export default interface PostClientInterface {
-  post (client: ClientModel): Promise<ClientModel>
+  post (request: ClientData): Promise<ClientModel>
 }

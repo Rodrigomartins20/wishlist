@@ -2,7 +2,7 @@ import DeleteClientInterface from '../../src/domain/interfaces/delete-client-int
 
 const mockDeleteClientInterface = (): DeleteClientInterface => {
   class DeleteClient implements DeleteClientInterface {
-    async delete (id: string): Promise<void> {
+    async delete (clientId: string): Promise<void> {
       return new Promise(resolve => resolve())
     }
   }
