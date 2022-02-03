@@ -50,6 +50,12 @@ describe('Db All Client Usecase', () => {
     await sut.post(makeFakeClientWishlist())
     expect(findWishlistByProductIdRepositorySpy).toHaveBeenCalledWith('4703e6c6-ef8f-4763-94ea-ce66a5f1a9a7')
   })
+  it('should throw if FindWishlistByProductIdRepository returns a product', async () => {
+    const { sut, findWishlistByProductIdRepositoryStub } = makeSut()
+    jest.spyOn(findWishlistByProductIdRepositoryStub, 'findWishlistByProductId').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeClientWishlist())))
+    const promise = sut.post(makeFakeClientWishlist())
+    expect(promise).rejects.toThrow('product already on client wishlist')
+  })
   it('should call ClientWishlistRepository', async () => {
     const { sut, postClientWishlistRepositoryStub } = makeSut()
     const postClientWishlistRepositorySpy = jest.spyOn(postClientWishlistRepositoryStub, 'post')
