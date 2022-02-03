@@ -1,0 +1,19 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=7c888ad87eab5d2693f6a184d034b677d8a14b3ebd0351f5b38800a8f4a2da90
+language: node_js
+node_js:
+  - 16.13.2
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - npm install -g jest
+after_script:
+  - ./cc-test-reporter upload-coverage --input 'coverage/coverage-final.json' -r $CC_TEST_REPORTER_ID
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT\
+script:
+  - npm run test:unit
+after_script:
+  - ./cc-test-reporter upload-coverage --input 'coverage/coverage-final.json' -r $CC_TEST_REPORTER_ID
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
