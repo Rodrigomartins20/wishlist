@@ -9,7 +9,10 @@ export default class DbPostClientUsecase implements PostClientInterface {
     private readonly findClientByEmail: FindClientByEmailRepositoryInterface
   ) {}
   async post(client: ClientModel): Promise<ClientModel> {
-    this.findClientByEmail.findClientByEmail(client.email)
+    const isEmailAlreadyInUse = await this.findClientByEmail.findClientByEmail(client.email)
+    if (isEmailAlreadyInUse) {
+      throw new Error('email already in use')
+    }
     return this.postClientRepository.post(client)
   }
 }

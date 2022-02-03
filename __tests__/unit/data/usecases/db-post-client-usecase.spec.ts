@@ -29,6 +29,12 @@ describe('Db All Client Usecase', () => {
     await sut.post(makeFakeClient())
     expect(findClientByEmailRepositorySpy).toHaveBeenCalledWith('any@mail.com')
   })
+  it('should throw an exception if email is already in use', async () => {
+    const { sut, findClientByEmailRepositoryStub } = makeSut()
+    jest.spyOn(findClientByEmailRepositoryStub, 'findClientByEmail').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeClient())))
+    const promise = sut.post(makeFakeClient())
+    expect(promise).rejects.toThrow('email already in use')
+  })
   it('should call ClientRepository', async () => {
     const { sut, postClientRepositoryStub } = makeSut()
     const postClientRepositorySpy = jest.spyOn(postClientRepositoryStub, 'post')
