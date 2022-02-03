@@ -4,11 +4,11 @@ import UpdateClientInterface from '../../../../src/domain/interfaces/update-clie
 import PostClientInterface from '../../../../src/domain/interfaces/post-client-interface'
 import DeleteClientInterface from '../../../../src/domain/interfaces/delete-client-interface'
 import ClientController from '../../../../src/presentation/client-controller'
-import { mockUpdateClientInterface } from '../../../../__mocks__/usecase/update-client-interface-mock'
-import { mockAllClientInterface } from '../../../../__mocks__/usecase/all-client-interface-mock'
-import { mockFindClientInterface } from '../../../../__mocks__/usecase/find-client-interface-mock'
-import { mockPostClientInterface } from '../../../../__mocks__/usecase/post-client-interface-mock'
-import { mockDeleteClientInterface } from '../../../../__mocks__/usecase/delete-client-interface-mock'
+import mockUpdateClientInterface from '../../../../__mocks__/usecase/update-client-interface-mock'
+import mockAllClientInterface from '../../../../__mocks__/usecase/all-client-interface-mock'
+import mockFindClientInterface from '../../../../__mocks__/usecase/find-client-interface-mock'
+import mockPostClientInterface from '../../../../__mocks__/usecase/post-client-interface-mock'
+import mockDeleteClientInterface from '../../../../__mocks__/usecase/delete-client-interface-mock'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 
 type SutTypes = {

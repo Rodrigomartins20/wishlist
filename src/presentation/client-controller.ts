@@ -6,16 +6,16 @@ import UpdateClientInterface from '@/domain/interfaces/update-client-interface'
 
 export default class ClientController {
   constructor (
-    private readonly findClient: FindClientInterface,
-    private readonly allClient: AllClientInterface,
-    private readonly updateClient: UpdateClientInterface,
-    private readonly postClient: PostClientInterface,
-    private readonly deleteClient: DeleteClientInterface
+    private readonly findClientUsecase: FindClientInterface,
+    private readonly allClientUsecase: AllClientInterface,
+    private readonly updateClientUsecase: UpdateClientInterface,
+    private readonly postClientUsecase: PostClientInterface,
+    private readonly deleteClientUsecase: DeleteClientInterface
   ) {}
 
   async find(id: string) {
     try {
-      return await this.findClient.find(id)
+      return await this.findClientUsecase.find(id)
     } catch (error) {
       return { message: 'oops', error: error.message }
     }
@@ -23,7 +23,7 @@ export default class ClientController {
 
   async all() {
     try {
-      return await this.allClient.all()
+      return await this.allClientUsecase.all()
     } catch (error) {
       return { message: 'oops', error: error.message }
     }
@@ -31,7 +31,7 @@ export default class ClientController {
 
   async update(client) {
     try {
-      return await this.updateClient.update({
+      return await this.updateClientUsecase.update({
         id: client.id,
         name: client.name,
         email: client.email
@@ -43,7 +43,7 @@ export default class ClientController {
 
   async post(client) {
     try {
-      return await this.postClient.post({
+      return await this.postClientUsecase.post({
         id: client.id,
         name: client.name,
         email: client.email
@@ -55,7 +55,7 @@ export default class ClientController {
 
   async delete(id) {
     try {
-      await this.deleteClient.delete(id)
+      await this.deleteClientUsecase.delete(id)
     } catch (error) {
       return { message: 'oops', error: error.message }
     }
