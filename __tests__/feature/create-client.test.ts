@@ -1,8 +1,15 @@
 import request from 'supertest'
 import app from '../../src/main/config/app'
+import { sequelize } from '../../src/infra/sequelize/sequelize-helper'
 
 describe('Create Client', () => {
-  it('should create a client', async () => {
+  beforeAll(async () => {
+    await sequelize.sync({ force: true })
+  })
+  afterAll(async () => {
+    await sequelize.close()
+  })
+  test('should create a client', async () => {
     await request(app)
       .post('/clients')
       .send({
