@@ -35,3 +35,27 @@ Client.init({
     { unique: true, fields: ['email'] }
   ]
 });
+
+export class ClientWishlist extends Model {}
+ClientWishlist.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+    primaryKey: true
+  },
+  client: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  product: {
+    type: DataTypes.UUID,
+    allowNull: false
+  }
+}, {
+  sequelize,
+  modelName: 'ClientWishlist',
+  indexes: [
+    { fields: ['client'] }
+  ]
+});
