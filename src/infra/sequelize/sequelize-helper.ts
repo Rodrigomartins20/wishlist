@@ -28,4 +28,7 @@ Client.init({
     type: DataTypes.STRING,
     allowNull: false
   }
-}, { sequelize, modelName: 'Client' });
+}, {
+  sequelize,
+  modelName: 'Client'
+});
