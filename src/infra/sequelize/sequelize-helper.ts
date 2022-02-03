@@ -30,5 +30,8 @@ Client.init({
   }
 }, {
   sequelize,
-  modelName: 'Client'
+  modelName: 'Client',
+  indexes: [
+    { unique: true, fields: ['email'] }
+  ]
 });
