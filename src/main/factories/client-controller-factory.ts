@@ -1,6 +1,6 @@
 import DbClientUsecase from '../../data/usecases/db-client-usecase'
 import { ClientRepository } from '../../infra/db/repositories/client-repository'
-import ClientController from '../../presentation/controllers/client-controller'
+import ClientController from '../../presentation/client-controller'
 
 export const ClientControllerFactory = () => {
   const clientRepository = new ClientRepository()

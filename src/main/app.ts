@@ -1,13 +1,12 @@
+import dotenv from 'dotenv'
 import express from 'express'
-import { ClientControllerFactory } from './factories/client-controller-factory'
+
+dotenv.config()
 
 const app = express()
 
-const clientController = ClientControllerFactory()
-
-app.post('/clients', async (req, res) => {
-  await clientController.post(req)
-})
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.listen(9000)
 

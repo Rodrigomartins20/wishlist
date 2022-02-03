@@ -3,12 +3,13 @@ import FindClientInterface from '../../../../src/domain/usecases/find-client-int
 import UpdateClientInterface from '../../../../src/domain/usecases/update-client-interface'
 import PostClientInterface from '../../../../src/domain/usecases/post-client-interface'
 import DeleteClientInterface from '../../../../src/domain/usecases/delete-client-interface'
-import ClientController from '../../../../src/presentation/controllers/client-controller'
+import ClientController from '../../../../src/presentation/client-controller'
 import { mockUpdateClientInterface } from '../../../../__mocks__/usecase/update-client-interface-mock'
 import { mockAllClientInterface } from '../../../../__mocks__/usecase/all-client-interface-mock'
 import { mockFindClientInterface } from '../../../../__mocks__/usecase/find-client-interface-mock'
 import { mockPostClientInterface } from '../../../../__mocks__/usecase/post-client-interface-mock'
 import { mockDeleteClientInterface } from '../../../../__mocks__/usecase/delete-client-interface-mock'
+import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 
 type SutTypes = {
   sut: ClientController,
@@ -58,11 +59,7 @@ describe('Client Controller', () => {
 
       const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
 
     it('should return an error if FindClient throws', async () => {
@@ -92,11 +89,7 @@ describe('Client Controller', () => {
 
       const response = await sut.all()
 
-      expect(response).toEqual([{
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }])
+      expect(response).toEqual([makeFakeClient()])
     })
     it('should return an error if AllClient throws', async () => {
       const { sut, allClientStub } = makeSut()
@@ -116,44 +109,24 @@ describe('Client Controller', () => {
       const { sut, updateClientStub } = makeSut()
       const updateClientSpy = jest.spyOn(updateClientStub, 'update')
 
-      await sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await sut.update(makeFakeClient())
 
-      expect(updateClientSpy).toHaveBeenCalledWith({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(updateClientSpy).toHaveBeenCalledWith(makeFakeClient())
     })
 
     it('should return UpdateClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.update(makeFakeClient())
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
 
     it('should return an error if UpdateClient throws', async () => {
       const { sut, updateClientStub } = makeSut()
       jest.spyOn(updateClientStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.update(makeFakeClient())
 
       expect(response).toEqual({
         message: 'oops',
@@ -167,44 +140,24 @@ describe('Client Controller', () => {
       const { sut, postClientStub } = makeSut()
       const postClientSpy = jest.spyOn(postClientStub, 'post')
 
-      await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await sut.post(makeFakeClient())
 
-      expect(postClientSpy).toHaveBeenCalledWith({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(postClientSpy).toHaveBeenCalledWith(makeFakeClient())
     })
 
     it('should return PostClient values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.post(makeFakeClient())
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
 
     it('should return an error if PostClient throws', async () => {
       const { sut, postClientStub } = makeSut()
       jest.spyOn(postClientStub, 'post').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const response = await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.post(makeFakeClient())
 
       expect(response).toEqual({
         message: 'oops',

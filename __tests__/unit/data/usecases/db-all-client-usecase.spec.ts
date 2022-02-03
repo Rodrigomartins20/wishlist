@@ -9,6 +9,7 @@ import { mockFindClientRepository } from '../../../../__mocks__/repository/find-
 import { mockDeleteClientRepository } from '../../../../__mocks__/repository/delete-client-repository-mock'
 import { mockPostClientRepository } from '../../../../__mocks__/repository/post-client-repository-mock'
 import { mockUpdateClientRepository } from '../../../../__mocks__/repository/update-client-repository-mock'
+import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 
 type SutTypes = {
   sut: DbClientUsecase,
@@ -67,11 +68,7 @@ describe('Db All Client Usecase', () => {
 
       const response = await sut.all()
 
-      expect(response).toEqual([{
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }])
+      expect(response).toEqual([makeFakeClient()])
     })
   })
 
@@ -99,11 +96,7 @@ describe('Db All Client Usecase', () => {
 
       const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
   })
 
@@ -132,11 +125,7 @@ describe('Db All Client Usecase', () => {
       const { sut, postClientRepositoryStub } = makeSut()
       const postClientRepositorySpy = jest.spyOn(postClientRepositoryStub, 'post')
 
-      await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await sut.post(makeFakeClient())
 
       expect(postClientRepositorySpy).toHaveBeenCalledTimes(1)
     })
@@ -145,11 +134,7 @@ describe('Db All Client Usecase', () => {
       const { sut, postClientRepositoryStub } = makeSut()
       jest.spyOn(postClientRepositoryStub, 'post').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const promise = sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const promise = sut.post(makeFakeClient())
 
       await expect(promise).rejects.toThrow()
     })
@@ -157,17 +142,9 @@ describe('Db All Client Usecase', () => {
     it('should return ClientRepository values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.post(makeFakeClient())
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
   })
 
@@ -176,11 +153,7 @@ describe('Db All Client Usecase', () => {
       const { sut, updateClientRepositoryStub } = makeSut()
       const updateClientRepositorySpy = jest.spyOn(updateClientRepositoryStub, 'update')
 
-      await sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await sut.update(makeFakeClient())
 
       expect(updateClientRepositorySpy).toHaveBeenCalledTimes(1)
     })
@@ -189,11 +162,7 @@ describe('Db All Client Usecase', () => {
       const { sut, updateClientRepositoryStub } = makeSut()
       jest.spyOn(updateClientRepositoryStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
 
-      const promise = sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const promise = sut.update(makeFakeClient())
 
       await expect(promise).rejects.toThrow()
     })
@@ -201,17 +170,9 @@ describe('Db All Client Usecase', () => {
     it('should return ClientRepository values', async () => {
       const { sut } = makeSut()
 
-      const response = await sut.update({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      const response = await sut.update(makeFakeClient())
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
   })
 })

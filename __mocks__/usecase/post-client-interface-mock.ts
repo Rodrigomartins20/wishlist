@@ -1,14 +1,11 @@
 import { ClientModel } from '../../src/domain/models/client-model'
 import PostClientInterface from '../../src/domain/usecases/post-client-interface'
+import makeFakeClient from '../objects/make-fake-client'
 
 export const mockPostClientInterface = (): PostClientInterface => {
   class PostClient implements PostClientInterface {
     async post (client: ClientModel): Promise<ClientModel> {
-      return new Promise(resolve => resolve({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }))
+      return new Promise(resolve => resolve(makeFakeClient()))
     }
   }
   return new PostClient()

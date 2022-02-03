@@ -3,6 +3,7 @@ dotenv.config()
 
 import { ClientRepository } from '../../../../../src/infra/db/repositories/client-repository'
 import { sequelize, Client } from '../../../../../src/infra/db/sequelize/sequelize-helper'
+import makeFakeClient from '../../../../../__mocks__/objects/make-fake-client'
 
 describe('Client Repository', () => {
   beforeEach(async () => {
@@ -13,11 +14,7 @@ describe('Client Repository', () => {
   })
   describe('All', () => {
     it('should return all clients', async () => {
-      await Client.bulkCreate([{
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }, {
+      await Client.bulkCreate([makeFakeClient(), {
         id: '167f49ac-5bbc-4e01-8685-07a245462ef9',
         name: 'other name',
         email: 'other@mail.com'
@@ -30,38 +27,22 @@ describe('Client Repository', () => {
         id: '167f49ac-5bbc-4e01-8685-07a245462ef9',
         name: 'other name',
         email: 'other@mail.com'
-      }, {
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      }])
+      }, makeFakeClient()])
     })
   })
   describe('Find', () => {
     it('should find a client', async () => {
-      await Client.create({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await Client.create(makeFakeClient())
       const sut = new ClientRepository()
 
       const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
 
-      expect(response).toEqual({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      expect(response).toEqual(makeFakeClient())
     })
   })
   describe('Update', () => {
     it('should update a client', async () => {
-      await Client.create({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await Client.create(makeFakeClient())
       const sut = new ClientRepository()
 
       await sut.update({
@@ -81,11 +62,7 @@ describe('Client Repository', () => {
     it('should post a client', async () => {
       const sut = new ClientRepository()
 
-      await sut.post({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await sut.post(makeFakeClient())
 
       const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
 
@@ -96,11 +73,7 @@ describe('Client Repository', () => {
   })
   describe('Delete', () => {
     it('should delete a client', async () => {
-      await Client.create({
-        id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
-        name: 'any name',
-        email: 'any@mail.com'
-      })
+      await Client.create(makeFakeClient())
       const sut = new ClientRepository()
 
       await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
