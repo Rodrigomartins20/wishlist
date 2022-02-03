@@ -9,6 +9,10 @@ export default (app: Express) => {
     const controllerResponse = await clientController.post(adaptRequest(expressRequest))
     return adaptResponse(controllerResponse, expressResponse)
   });
+  app.get('/clients', async (expressRequest, expressResponse) => {
+    const controllerResponse = await clientController.all(adaptRequest(expressRequest))
+    return adaptResponse(controllerResponse, expressResponse)
+  });
   app.get('/clients/:id', async (expressRequest, expressResponse) => {
     const controllerResponse = await clientController.find(adaptRequest(expressRequest))
     return adaptResponse(controllerResponse, expressResponse)
