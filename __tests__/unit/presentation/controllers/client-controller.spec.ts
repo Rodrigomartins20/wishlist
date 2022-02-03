@@ -68,7 +68,7 @@ describe('Client Controller', () => {
       expect(response).toEqual({
         statusCode: 500,
         body: {
-          message: 'oops, there was an error in our side',
+          message: 'oops, there was an error',
           error: 'any message'
         }
       })
@@ -96,7 +96,7 @@ describe('Client Controller', () => {
       expect(response).toEqual({
         statusCode: 500,
         body: {
-          message: 'oops, there was an error in our side',
+          message: 'oops, there was an error',
           error: 'any message'
         }
       })
@@ -138,7 +138,7 @@ describe('Client Controller', () => {
       expect(response).toEqual({
         statusCode: 500,
         body: {
-          message: 'oops, there was an error in our side',
+          message: 'oops, there was an error',
           error: 'any message'
         }
       })
@@ -179,7 +179,7 @@ describe('Client Controller', () => {
       expect(response).toEqual({
         statusCode: 500,
         body: {
-          message: 'oops, there was an error in our side',
+          message: 'oops, there was an error',
           error: 'any message'
         }
       })
@@ -207,7 +207,7 @@ describe('Client Controller', () => {
       expect(response).toEqual({
         statusCode: 500,
         body: {
-          message: 'oops, there was an error in our side',
+          message: 'oops, there was an error',
           error: 'any message'
         }
       })

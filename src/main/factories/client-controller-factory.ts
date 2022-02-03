@@ -10,7 +10,7 @@ const ClientControllerFactory = (): ClientController => {
   const clientRepository = new ClientRepository()
 
   const deleteClientUsecase = new DbDeleteClientUsecase(clientRepository)
-  const postClientUsecase = new DbPostClientUsecase(clientRepository)
+  const postClientUsecase = new DbPostClientUsecase(clientRepository, clientRepository)
   const updateClientUsecase = new DbUpdateClientUsecase(clientRepository)
   const allClientUsecase = new DbAllClientUsecase(clientRepository)
   const findClientUsecase = new DbFindClientUsecase(clientRepository)
