@@ -2,8 +2,11 @@ env:
   global:
     - CC_TEST_REPORTER_ID=7c888ad87eab5d2693f6a184d034b677d8a14b3ebd0351f5b38800a8f4a2da90
 language: node_js
+sudo: enabled
 node_js:
   - 16.13.2
+before_install:
+    - sudo mysql -e 'CREATE DATABASE wishlist;'
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
