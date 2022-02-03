@@ -39,6 +39,9 @@ export default class ClientRepository implements
     const client: Client = await Client.findOne({
       where: { email }
     })
+    if (! client) {
+      return null
+    }
     return {
       id: client.getDataValue('id'),
       name: client.getDataValue('name'),

@@ -43,6 +43,11 @@ describe('Client Repository', () => {
       const response = await sut.findClientByEmail('any@mail.com')
       expect(response).toEqual(makeFakeClient())
     })
+    it('should return null if no client is found by email', async () => {
+      const sut = new ClientRepository()
+      const response = await sut.findClientByEmail('any@mail.com')
+      expect(response).toEqual(null)
+    })
   })
   describe('Update', () => {
     it('should update a client', async () => {
