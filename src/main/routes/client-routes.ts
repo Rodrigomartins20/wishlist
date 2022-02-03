@@ -17,4 +17,8 @@ export default (app: Express) => {
     const controllerResponse = await clientController.update(adaptRequest(expressRequest))
     return adaptResponse(controllerResponse, expressResponse)
   });
+  app.delete('/clients/:id', async (expressRequest, expressResponse) => {
+    const controllerResponse = await clientController.delete(adaptRequest(expressRequest))
+    return adaptResponse(controllerResponse, expressResponse)
+  });
 }
