@@ -1,12 +1,20 @@
 import AllClientRepositoryInterface  from '@/data/interfaces/all-client-repository-interface'
 import DeleteClientRepositoryInterface from '@/data/interfaces/delete-client-repository-interface'
+import FindClientByEmailRepositoryInterface from '@/data/interfaces/find-client-by-email-repository-interface'
 import FindClientRepositoryInterface from '@/data/interfaces/find-client-repository-interface'
 import PostClientRepositoryInterface from '@/data/interfaces/post-client-repository-interface'
 import UpdateClientRepositoryInterface from '@/data/interfaces/update-client-repository-interface'
 import ClientModel from '@/domain/models/client-model'
 import { Client, sequelize } from '../sequelize/sequelize-helper'
 
-export default class ClientRepository implements AllClientRepositoryInterface, FindClientRepositoryInterface, UpdateClientRepositoryInterface, PostClientRepositoryInterface, DeleteClientRepositoryInterface {
+export default class ClientRepository implements
+  AllClientRepositoryInterface,
+  FindClientRepositoryInterface,
+  UpdateClientRepositoryInterface,
+  PostClientRepositoryInterface,
+  DeleteClientRepositoryInterface,
+  FindClientByEmailRepositoryInterface
+{
   async all (): Promise<ClientModel[]> {
     await sequelize.sync()
     return (await Client.findAll( { attributes: ['id', 'name', 'email' ]})).map(client => ({
@@ -22,6 +30,17 @@ export default class ClientRepository implements AllClientRepositoryInterface, F
     })
     return {
       id,
+      name: client.getDataValue('name'),
+      email: client.getDataValue('email')
+    }
+  }
+  async findClientByEmail (email: string): Promise<ClientModel> {
+    await sequelize.sync()
+    const client: Client = await Client.findOne({
+      where: { email }
+    })
+    return {
+      id: client.getDataValue('id'),
       name: client.getDataValue('name'),
       email: client.getDataValue('email')
     }

@@ -36,6 +36,14 @@ describe('Client Repository', () => {
       expect(response).toEqual(makeFakeClient())
     })
   })
+  describe('FindByEmail', () => {
+    it('should find a client by email', async () => {
+      await Client.create(makeFakeClient())
+      const sut = new ClientRepository()
+      const response = await sut.findClientByEmail('any@mail.com')
+      expect(response).toEqual(makeFakeClient())
+    })
+  })
   describe('Update', () => {
     it('should update a client', async () => {
       await Client.create(makeFakeClient())
