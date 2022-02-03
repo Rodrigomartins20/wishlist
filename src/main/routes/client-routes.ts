@@ -13,4 +13,8 @@ export default (app: Express) => {
     const controllerResponse = await clientController.find(adaptRequest(expressRequest))
     return adaptResponse(controllerResponse, expressResponse)
   });
+  app.put('/clients/:id', async (expressRequest, expressResponse) => {
+    const controllerResponse = await clientController.update(adaptRequest(expressRequest))
+    return adaptResponse(controllerResponse, expressResponse)
+  });
 }

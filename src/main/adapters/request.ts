@@ -5,7 +5,8 @@ export default (expressRequest: Request): HttpRequest => {
   let body = expressRequest.body
   if (expressRequest.params.id) {
     body = {
-      id: expressRequest.params.id
+      id: expressRequest.params.id,
+      ...body
     }
   }
   return {
