@@ -1,13 +1,8 @@
-import dotenv from 'dotenv'
-import express from 'express'
+import 'module-alias/register'
 
-dotenv.config()
+const run = async () => {
+  const app = (await import('@/main/config/app')).default
+  app.listen(9000)
+}
 
-const app = express()
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-app.listen(9000)
-
-export default app
+run()

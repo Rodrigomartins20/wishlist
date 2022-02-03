@@ -6,7 +6,7 @@ import DbUpdateClientUsecase from '@/data/usecases/db-update-client-usecase'
 import ClientRepository from '@/infra/repositories/client-repository'
 import ClientController from '@/presentation/client-controller'
 
-export const ClientControllerFactory = (): ClientController => {
+const ClientControllerFactory = (): ClientController => {
   const clientRepository = new ClientRepository()
 
   const deleteClientUsecase = new DbDeleteClientUsecase(clientRepository)
@@ -23,3 +23,5 @@ export const ClientControllerFactory = (): ClientController => {
     deleteClientUsecase
   )
 }
+
+export default ClientControllerFactory;
