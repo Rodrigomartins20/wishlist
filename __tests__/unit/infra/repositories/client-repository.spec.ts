@@ -20,9 +20,7 @@ describe('Client Repository', () => {
         email: 'other@mail.com'
       }])
       const sut = new ClientRepository()
-
       const response = await sut.all()
-
       expect(response).toEqual([{
         id: '167f49ac-5bbc-4e01-8685-07a245462ef9',
         name: 'other name',
@@ -34,9 +32,7 @@ describe('Client Repository', () => {
     it('should find a client', async () => {
       await Client.create(makeFakeClient())
       const sut = new ClientRepository()
-
       const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
-
       expect(response).toEqual(makeFakeClient())
     })
   })
@@ -44,15 +40,12 @@ describe('Client Repository', () => {
     it('should update a client', async () => {
       await Client.create(makeFakeClient())
       const sut = new ClientRepository()
-
       await sut.update({
         id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         name: 'any other name',
         email: 'any_other@mail.com'
       })
-
       const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
-
       expect(client.getDataValue('id')).toEqual('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
       expect(client.getDataValue('name')).toEqual('any other name')
       expect(client.getDataValue('email')).toEqual('any_other@mail.com')
@@ -61,11 +54,8 @@ describe('Client Repository', () => {
   describe('Post', () => {
     it('should post a client', async () => {
       const sut = new ClientRepository()
-
       await sut.post(makeFakeClient())
-
       const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
-
       expect(client.getDataValue('id')).toEqual('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
       expect(client.getDataValue('name')).toEqual('any name')
       expect(client.getDataValue('email')).toEqual('any@mail.com')
@@ -75,9 +65,7 @@ describe('Client Repository', () => {
     it('should delete a client', async () => {
       await Client.create(makeFakeClient())
       const sut = new ClientRepository()
-
       await sut.delete('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
-
       const client = await Client.findOne({ where: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
       expect(client).toEqual(null)
     })

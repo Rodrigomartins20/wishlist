@@ -21,26 +21,18 @@ describe('Db Update Client Usecase', () => {
   it('should call ClientRepository', async () => {
     const { sut, updateClientRepositoryStub } = makeSut()
     const updateClientRepositorySpy = jest.spyOn(updateClientRepositoryStub, 'update')
-
     await sut.update(makeFakeClient())
-
     expect(updateClientRepositorySpy).toHaveBeenCalledTimes(1)
   })
-
   it('should throw if ClientRepository throws', async () => {
     const { sut, updateClientRepositoryStub } = makeSut()
     jest.spyOn(updateClientRepositoryStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
     const promise = sut.update(makeFakeClient())
-
     await expect(promise).rejects.toThrow()
   })
-
   it('should return ClientRepository values', async () => {
     const { sut } = makeSut()
-
     const response = await sut.update(makeFakeClient())
-
     expect(response).toEqual(makeFakeClient())
   })
 })

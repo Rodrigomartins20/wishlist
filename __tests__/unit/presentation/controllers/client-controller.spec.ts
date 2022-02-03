@@ -12,7 +12,7 @@ import mockDeleteClientInterface from '../../../../__mocks__/usecase/delete-clie
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 
 type SutTypes = {
-  sut: ClientController,
+  sut: ClientController
   findClientStub: FindClientInterface
   allClientStub: AllClientInterface
   updateClientStub: UpdateClientInterface
@@ -48,17 +48,12 @@ describe('Client Controller', () => {
     it('should call FindClient with correct values', async () => {
       const { sut, findClientStub } = makeSut()
       const findClientSpy = jest.spyOn(findClientStub, 'find')
-
       await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
-
       expect(findClientSpy).toHaveBeenCalledWith('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
     })
-
     it('should return FindClient values', async () => {
       const { sut } = makeSut()
-
       const response = await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
-
       expect(response).toEqual({
         statusCode: 200,
         body: {
@@ -66,13 +61,10 @@ describe('Client Controller', () => {
         }
       })
     })
-
     it('should return an error if FindClient throws', async () => {
       const { sut, findClientStub } = makeSut()
       jest.spyOn(findClientStub, 'find').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
       const response = await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
-
       expect(response).toEqual({
         statusCode: 500,
         body: {
@@ -82,21 +74,16 @@ describe('Client Controller', () => {
       })
     })
   })
-
   describe('all()', () => {
     it('should call AllClient with correct values', async () => {
       const { sut, allClientStub } = makeSut()
       const allClientSpy = jest.spyOn(allClientStub, 'all')
-
       await sut.all({})
-
       expect(allClientSpy).toHaveBeenCalledTimes(1)
     })
     it('should return AllClient values', async () => {
       const { sut } = makeSut()
-
       const response = await sut.all({})
-
       expect(response).toEqual({
         statusCode: 200,
         body: [makeFakeClient()]
@@ -105,9 +92,7 @@ describe('Client Controller', () => {
     it('should return an error if AllClient throws', async () => {
       const { sut, allClientStub } = makeSut()
       jest.spyOn(allClientStub, 'all').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
       const response = await sut.all({})
-
       expect(response).toEqual({
         statusCode: 500,
         body: {
@@ -117,30 +102,24 @@ describe('Client Controller', () => {
       })
     })
   })
-
   describe('update()', () => {
     it('should call UpdateClient with correct values', async () => {
       const { sut, updateClientStub } = makeSut()
       const updateClientSpy = jest.spyOn(updateClientStub, 'update')
-
       await sut.update({
         body: {
           ...makeFakeClient()
         }
       })
-
       expect(updateClientSpy).toHaveBeenCalledWith(makeFakeClient())
     })
-
     it('should return UpdateClient values', async () => {
       const { sut } = makeSut()
-
       const response = await sut.update({
         body: {
           ...makeFakeClient()
         }
       })
-
       expect(response).toEqual({
         statusCode: 202,
         body: {
@@ -148,17 +127,14 @@ describe('Client Controller', () => {
         }
       })
     })
-
     it('should return an error if UpdateClient throws', async () => {
       const { sut, updateClientStub } = makeSut()
       jest.spyOn(updateClientStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
       const response = await sut.update({
         body: {
           ...makeFakeClient()
         }
       })
-
       expect(response).toEqual({
         statusCode: 500,
         body: {
@@ -168,29 +144,23 @@ describe('Client Controller', () => {
       })
     })
   })
-
   describe('post()', () => {
     it('should call PostClient with correct values', async () => {
       const { sut, postClientStub } = makeSut()
       const postClientSpy = jest.spyOn(postClientStub, 'post')
-
       const { name, email } = makeFakeClient()
       await sut.post({
         body: { name, email }
       })
-
       expect(postClientSpy).toHaveBeenCalledWith({ name, email })
     })
-
     it('should return PostClient values', async () => {
       const { sut } = makeSut()
-
       const response = await sut.post({
         body: {
           ...makeFakeClient()
         }
       })
-
       expect(response).toEqual({
         statusCode: 201,
         body: {
@@ -198,17 +168,14 @@ describe('Client Controller', () => {
         }
       })
     })
-
     it('should return an error if PostClient throws', async () => {
       const { sut, postClientStub } = makeSut()
       jest.spyOn(postClientStub, 'post').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
       const response = await sut.post({
         body: {
           ...makeFakeClient()
         }
       })
-
       expect(response).toEqual({
         statusCode: 500,
         body: {
@@ -218,31 +185,25 @@ describe('Client Controller', () => {
       })
     })
   })
-  
   describe('delete()', () => {
     it('should call DeleteClient with correct values', async () => {
       const { sut, deleteClientStub } = makeSut()
       const deleteClientSpy = jest.spyOn(deleteClientStub, 'delete')
-
       await sut.delete({
         body: {
           id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7'
         }
       })
-
       expect(deleteClientSpy).toHaveBeenCalledWith('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
     })
-
     it('should return an error if DeleteClient throws', async () => {
       const { sut, deleteClientStub } = makeSut()
       jest.spyOn(deleteClientStub, 'delete').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
-
       const response = await sut.delete({
         body: {
           id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7'
         }
       })
-
       expect(response).toEqual({
         statusCode: 500,
         body: {
