@@ -2,7 +2,7 @@ import ClientModel from '@/domain/models/client-model'
 import AllClientRepositoryInterface from '@/data/interfaces/all-client-repository-interface'
 import AllClientInterface from '@/domain/interfaces/all-client-interface'
 
-export default class DbClientUsecase implements AllClientInterface {
+export default class DbAllClientUsecase implements AllClientInterface {
   constructor (
     private readonly allClientRepository: AllClientRepositoryInterface
   ) {}

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { ClientRepository } from '../../../../src/infra/repositories/client-repository'
+import ClientRepository from '../../../../src/infra/repositories/client-repository'
 import { sequelize, Client } from '../../../../src/infra/sequelize/sequelize-helper'
 import makeFakeClient from '../../../../__mocks__/objects/make-fake-client'
 

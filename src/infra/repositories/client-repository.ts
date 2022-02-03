@@ -6,7 +6,7 @@ import UpdateClientRepositoryInterface from '@/data/interfaces/update-client-rep
 import ClientModel from '@/domain/models/client-model'
 import { Client, sequelize } from '../sequelize/sequelize-helper'
 
-export class ClientRepository implements AllClientRepositoryInterface, FindClientRepositoryInterface, UpdateClientRepositoryInterface, PostClientRepositoryInterface, DeleteClientRepositoryInterface {
+export default class ClientRepository implements AllClientRepositoryInterface, FindClientRepositoryInterface, UpdateClientRepositoryInterface, PostClientRepositoryInterface, DeleteClientRepositoryInterface {
   async all (): Promise<ClientModel[]> {
     await sequelize.sync()
     return (await Client.findAll( { attributes: ['id', 'name', 'email' ]})).map(client => ({
