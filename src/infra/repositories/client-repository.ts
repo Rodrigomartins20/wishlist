@@ -57,10 +57,13 @@ export default class ClientRepository implements
   }
   async post (client: ClientModel): Promise<ClientModel> {
     await sequelize.sync()
-    await Client.create({
+    const insertedRow = await Client.create({
       ...client
     })
-    return { ...client }
+    return {
+      id: insertedRow.getDataValue('id'),
+      ...client
+    }
   }
   async delete (id: string): Promise<void> {
     await sequelize.sync()
