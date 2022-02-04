@@ -35,6 +35,11 @@ describe('Client Repository', () => {
       const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
       expect(response).toEqual(makeFakeClient())
     })
+    it('should return null if no client is found', async () => {
+      const sut = new ClientRepository()
+      const response = await sut.find('e90b6e65-d87f-4fe3-b074-9ad1599bc9c7')
+      expect(response).toBeNull()
+    })
   })
   describe('FindByEmail', () => {
     it('should find a client by email', async () => {

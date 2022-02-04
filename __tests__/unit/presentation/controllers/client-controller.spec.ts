@@ -61,6 +61,15 @@ describe('Client Controller', () => {
         }
       })
     })
+    it('should return not found if FindClient returns null', async () => {
+      const { sut, findClientStub } = makeSut()
+      jest.spyOn(findClientStub, 'find').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+      const response = await sut.find({ body: { id: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7' } })
+      expect(response).toEqual({
+        statusCode: 404,
+        body: {}
+      })
+    })
     it('should return an error if FindClient throws', async () => {
       const { sut, findClientStub } = makeSut()
       jest.spyOn(findClientStub, 'find').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any message'))))
