@@ -14,7 +14,7 @@ describe('Duplicated Client', () => {
     await Client.create(makeFakeClient())
     await request(app)
       .post('/clients')
-      .set('Authorization', 'Token 1234567890')
+      .set('Authorization', 'Bearer 1234567890')
       .send({
         name: 'any name',
         email: 'any@mail.com'

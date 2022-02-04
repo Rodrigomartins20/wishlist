@@ -15,7 +15,7 @@ describe('Update Client', () => {
     await Client.create(client)
     const response = await request(app)
       .put(`/clients/${client.id}`)
-      .set('Authorization', 'Token 1234567890')
+      .set('Authorization', 'Bearer 1234567890')
       .send({
         name: 'other name'
       })

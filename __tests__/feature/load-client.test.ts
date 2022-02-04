@@ -15,7 +15,7 @@ describe('Load Client', () => {
     await Client.create(client)
     const response = await request(app)
       .get(`/clients/${client.id}`)
-      .set('Authorization', 'Token 1234567890')
+      .set('Authorization', 'Bearer 1234567890')
     expect(response.status).toEqual(200)
     expect(response.body.name).toEqual(client.name)
     expect(response.body.email).toEqual(client.email)

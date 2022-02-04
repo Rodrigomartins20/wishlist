@@ -23,7 +23,7 @@ describe('Load All Clients', () => {
     ])
     const response = await request(app)
       .get('/clients/')
-      .set('Authorization', 'Token 1234567890')
+      .set('Authorization', 'Bearer 1234567890')
     expect(response.status).toEqual(200)
     expect(response.body).toEqual([
       client2,

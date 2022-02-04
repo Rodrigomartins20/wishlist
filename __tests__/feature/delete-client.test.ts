@@ -15,7 +15,7 @@ describe('Delete Client', () => {
     await Client.create(client)
     const response = await request(app)
       .delete(`/clients/${client.id}`)
-      .set('Authorization', 'Token 1234567890')
+      .set('Authorization', 'Bearer 1234567890')
     expect(response.status).toEqual(202)
     const deletedClient = await Client.findOne({ where: { id: client.id }})
     expect(deletedClient).toBeFalsy()

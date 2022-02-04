@@ -15,7 +15,7 @@ describe('Auth Middleware', () => {
     expect(response.body).toEqual({})
   })
   test('should return unauthorized[2]', async () => {
-    const response = await request(app).get('/clients').set('Authorization', 'Token')
+    const response = await request(app).get('/clients').set('Authorization', 'Bearer')
     expect(response.status).toEqual(401)
     expect(response.body).toEqual({})
   })
