@@ -8,7 +8,8 @@ const ClientWishlistControllerFactory = (): ClientWishlistController => {
   const clientWishlistRepository = new ClientWishlistRepository()
   const postClientWishlistUsecase = new DbPostClientWishlistUsecase(
     clientWishlistRepository,
-    productRepository
+    productRepository,
+    clientWishlistRepository
   )
   return new ClientWishlistController(postClientWishlistUsecase)
 }
