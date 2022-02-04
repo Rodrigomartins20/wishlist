@@ -3,35 +3,47 @@ import PostClientWishlistRepositoryInterface from '../../../../src/data/interfac
 import { mockPostClientWishlistRepository } from '../../../../__mocks__/repository/post-client-wishlist-repository-mock'
 import { mockFindProductByIdRepository } from '../../../../__mocks__/repository/find-product-by-id-repository-mock'
 import { mockFindWishlistByProductIdRepository } from '../../../../__mocks__/repository/find-wishlist-by-product-id-repository-mock'
+import { mockFindClientRepository } from '../../../../__mocks__/repository/find-client-repository-mock'
 import makeFakeClientWishlist from '../../../../__mocks__/objects/make-fake-client-wishlist'
 import FindProductByIdRepositoryInterface from '../../../../src/data/interfaces/find-product-by-id-repository-interface'
 import FindWishlistByProductIdRepositoryInterface from '../../../../src/data/interfaces/find-wishlist-by-product-id-repository-interface'
+import FindClientRepositoryInterface from '../../../../src/data/interfaces/find-client-repository-interface'
 
 type SutTypes = {
   sut: DbPostClientWishlistUsecase
   postClientWishlistRepositoryStub: PostClientWishlistRepositoryInterface
   findProductByIdRepositoryStub: FindProductByIdRepositoryInterface
   findWishlistByProductIdRepositoryStub: FindWishlistByProductIdRepositoryInterface
+  findClientRepositoryStub: FindClientRepositoryInterface
 }
 
 const makeSut = (): SutTypes => {
+  const findClientRepositoryStub = mockFindClientRepository()
   const findWishlistByProductIdRepositoryStub = mockFindWishlistByProductIdRepository()
   const findProductByIdRepositoryStub = mockFindProductByIdRepository()
   const postClientWishlistRepositoryStub = mockPostClientWishlistRepository()
   const sut = new DbPostClientWishlistUsecase(
     postClientWishlistRepositoryStub,
     findProductByIdRepositoryStub,
-    findWishlistByProductIdRepositoryStub
+    findWishlistByProductIdRepositoryStub,
+    findClientRepositoryStub
   )
   return {
     sut,
     postClientWishlistRepositoryStub,
     findProductByIdRepositoryStub,
-    findWishlistByProductIdRepositoryStub
+    findWishlistByProductIdRepositoryStub,
+    findClientRepositoryStub
   }
 }
 
 describe('Db All Client Usecase', () => {
+  it('should call FindProductByIdRepository with correct values', async () => {
+    const { sut, findClientRepositoryStub } = makeSut()
+    const findClientRepositorySpy = jest.spyOn(findClientRepositoryStub, 'find')
+    await sut.post(makeFakeClientWishlist())
+    expect(findClientRepositorySpy).toHaveBeenCalledWith('b49ad762-b28a-4b63-808f-18584e8e7246')
+  })
   it('should call FindProductByIdRepository with correct values', async () => {
     const { sut, findProductByIdRepositoryStub } = makeSut()
     const findProductByIdRepositorySpy = jest.spyOn(findProductByIdRepositoryStub, 'findProductById')
