@@ -44,6 +44,12 @@ describe('Db All Client Usecase', () => {
     await sut.post(makeFakeClientWishlist())
     expect(findClientRepositorySpy).toHaveBeenCalledWith('b49ad762-b28a-4b63-808f-18584e8e7246')
   })
+  it('should throw if FindProductByIdRepository returns null', async () => {
+    const { sut, findClientRepositoryStub } = makeSut()
+    jest.spyOn(findClientRepositoryStub, 'find').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    const promise = sut.post(makeFakeClientWishlist())
+    expect(promise).rejects.toThrow('client doesnt exists')
+  })
   it('should call FindProductByIdRepository with correct values', async () => {
     const { sut, findProductByIdRepositoryStub } = makeSut()
     const findProductByIdRepositorySpy = jest.spyOn(findProductByIdRepositoryStub, 'findProductById')
