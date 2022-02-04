@@ -1,5 +1,21 @@
 version: '3.3'
 services:
+  app:
+    container_name: wishlist
+    depends_on:
+      - wishlist_mysql
+    image: wishlist
+    build: .
+    restart: always
+    volumes:
+      - ./dist:/usr/src/wishlist/dist
+      - ./package.json:/usr/src/wishlist/package.json
+    ports:
+      - "9000:9000"
+    command: npm run start
+    links:
+      - wishlist_mysql
+
   wishlist_mysql:
     image: mysql
     restart: always
@@ -7,6 +23,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wishlist
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - ./data:/data/wishlist_mysql
