@@ -13,7 +13,10 @@ export default class DbPostClientWishlistUsecase implements PostClientWishlistIn
     private readonly findClientRepositoryInterface: FindClientRepositoryInterface
   ) {}
   async post(clientWishlist: ClientWishlistModel): Promise<ClientWishlistModel> {
-    await this.findClientRepositoryInterface.find(clientWishlist.client)
+    const clientExists = await this.findClientRepositoryInterface.find(clientWishlist.client)
+    if (! clientExists) {
+      throw new Error('client doesnt exists')
+    }
     const productExists = await this.findProductByIdRepository.findProductById(clientWishlist.product)
     if (! productExists) {
       throw new Error('product doesnt exists')
