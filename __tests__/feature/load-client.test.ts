@@ -13,7 +13,9 @@ describe('Load Client', () => {
   test('should load the client', async () => {
     const client = makeFakeClient()
     await Client.create(client)
-    const response = await request(app).get(`/clients/${client.id}`)
+    const response = await request(app)
+      .get(`/clients/${client.id}`)
+      .set('Authorization', 'Token 1234567890')
     expect(response.status).toEqual(200)
     expect(response.body.name).toEqual(client.name)
     expect(response.body.email).toEqual(client.email)

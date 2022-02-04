@@ -12,6 +12,7 @@ describe('Create Client', () => {
   test('should create a client', async () => {
     await request(app)
       .post('/clients')
+      .set('Authorization', 'Token 1234567890')
       .send({
         name: 'any name',
         email: 'any@mail.com'

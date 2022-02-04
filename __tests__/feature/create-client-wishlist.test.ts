@@ -14,6 +14,7 @@ describe('Create Wishlist Client', () => {
   test('should create a client wishlist', async () => {
     await request(app)
       .post('/wishlists')
+      .set('Authorization', 'Token 1234567890')
       .send({
         client: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         product: '1bf0f365-fbdd-4e21-9786-da459d78dd1f'
@@ -23,6 +24,7 @@ describe('Create Wishlist Client', () => {
   test('should not create a client wishlist if product doesnt exists', async () => {
     await request(app)
       .post('/wishlists')
+      .set('Authorization', 'Token 1234567890')
       .send({
         client: 'e90b6e65-d87f-4fe3-b074-9ad1599bc9c7',
         product: 'any_wrong_hash'

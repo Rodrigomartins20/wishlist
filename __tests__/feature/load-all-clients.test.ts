@@ -21,7 +21,9 @@ describe('Load All Clients', () => {
       makeFakeClient(),
       client2
     ])
-    const response = await request(app).get('/clients/')
+    const response = await request(app)
+      .get('/clients/')
+      .set('Authorization', 'Token 1234567890')
     expect(response.status).toEqual(200)
     expect(response.body).toEqual([
       client2,
