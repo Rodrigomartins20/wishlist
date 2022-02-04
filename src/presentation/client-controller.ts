@@ -9,6 +9,7 @@ import Accepted from './responses/accepted'
 import Created from './responses/created'
 import Ok from './responses/ok'
 import ServerError from './responses/server-error'
+import NotFound from './responses/not-found'
 
 export default class ClientController {
   constructor (
@@ -22,6 +23,9 @@ export default class ClientController {
   async find(request: HttpRequest): Promise<HttpResponse> {
     try {
       const client = await this.findClientUsecase.find(request.body.id)
+      if (! client) {
+        return NotFound({})
+      }
       return Ok(client)
     } catch (error) {
       return ServerError(error)
